@@ -1,0 +1,141 @@
+body {
+    background-color: #FAF0E6;
+    font-family: 'Ubuntu', sans-serif;
+    box-sizing: border-box;
+}
+
+.heading {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 80px;
+}
+
+.main-div {
+    margin-top: 50px;
+    text-align: center;
+}
+
+p {
+    margin: 30px auto;
+    font-weight: 800;
+    font-size: 18px;
+}
+
+#addBook-btn {
+    box-shadow: 1px 3px #888888;
+    width: 150px;
+    height: 40px;
+    border-radius: 5px 5px;
+    transition: 0.5s;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.form {
+    box-shadow: 5px 10px #888888;
+    border: black 1px solid;
+    border-radius: 10px 10px;
+    width: 300px;
+    padding: 15px;
+    display: none;
+    position: absolute;
+    top: 150px;
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+    z-index: 0;
+}
+
+span, label {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+input {
+    margin: 10px;
+    width: 250px;
+}
+
+#yes, #no {
+    margin-top: 20px;
+    width: 20px;
+
+}
+
+.button-div {
+    text-align: center;
+}
+
+#add-btn {
+    font-weight: 700;
+    margin-top: 20px;
+    width: 250px;
+    height: 30px;
+    border-radius: 5px 5px;
+    transition: 0.5s;
+}
+
+#addBook-btn:hover, #add-btn:hover {
+    background-color: #6495ED;
+    cursor: pointer;
+}
+
+table, th , td {
+    border: none;
+    border-collapse: collapse;
+    min-width: 220px;
+}
+
+th {
+    font-size: 20px;
+    text-align: left;
+}
+
+.table-box {
+    margin: 50px;
+    margin-bottom: 300px;
+}
+
+.delete {
+    color: black;
+    padding-top: 3px;
+    background-color: red;
+    display: inline-block;
+    text-decoration: none;
+    height: 25px;
+    width: 25px;
+    transition: 0.5s;
+    text-align: center;
+}
+
+.btn-delete:hover {
+    cursor: pointer;
+    background-color: #B22222;
+}
+
+.success {
+    position: absolute;
+    background-color: #32CD32;
+    width: 100px;
+    height: 30px;
+    padding: 10px;
+}
+
+.removed {
+    position: absolute;
+    background-color: red;
+    width: 120px;
+    height: 35px;
+    padding: 10px;
+}
+
+.status {
+    height: 20px;
+    position: relative;
+    right: 100px;
+}
+
+.status:hover {
+    cursor: pointer;
+}

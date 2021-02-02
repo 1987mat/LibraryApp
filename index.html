@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+    <title>Library App</title>
+</head>
+
+<body>
+    <div class="heading">
+        <h1>Library App</h1>
+    </div>
+    <div class="main-div">
+        <div class="para-div">
+            <p>Click the button below and add a new book to the list</p>
+            <button id="addBook-btn">+ ADD BOOK</button>
+        </div>
+
+        <form action="#" class="form">
+            <label for="title">Title</label>
+            <input type="text" id="title" required>
+            <label for="author">Author</label>
+            <input type="text" id="author" required>
+            <label for="num-pages">No. of pages</label>
+            <input type="number" id="num-pages" required>
+            <br>
+            <span>Have you read this book?</span>
+            <br>
+            <input type="radio" name="radio" id="yes" value="yes" checked>
+            <label for="yes" class="yes">Yes</label>
+            <input type="radio" name="radio" id="no" value="no">
+            <label for="no" class="no">No</label>
+            <div class="button-div">
+                <button id="add-btn" type="submit">SUBMIT</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="table-box">
+        <hr>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>No. of pages</th>
+                    <th>Read</th>
+                </tr>
+            </thead>
+            <tbody class="list"></tbody>
+
+        </table>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

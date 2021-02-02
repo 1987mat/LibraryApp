@@ -17,12 +17,20 @@ function Book(author, title, pages, read) {
 let myLibrary = [];
 
 // Load page event listener
-
-document.addEventListener('DOMContentLoaded', function displayBooks(){
-
-  getLibrary();
-  displayBooks();
-});
+document.addEventListener('DOMContentLoaded', () => {
+    getLibrary();
+    let row;
+    for(let b of myLibrary){ 
+      row = document.createElement('tr'); 
+      row.innerHTML = 
+       `<td>${b.title}</td>
+        <td>${b.author}</td>
+        <td>${b.pages}</td>
+        <td>${b.read}</td>
+        <td><a href="#" class="btn delete">X</a></td>`;
+      }
+      list.appendChild(row);
+    });
 
 // Event listener when clicking ADD BOOK button
 btnNewBook.addEventListener('click', function() {
@@ -51,7 +59,7 @@ form.addEventListener('submit', (e) => {
 
     // Push book to the library, show it on the UI and clear the form
     myLibrary.push(book);
-    addBookToList(myLibrary);
+    addBookToList();
 
     // Add book to Local Storage
     addBook();

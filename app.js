@@ -20,17 +20,17 @@ let myLibrary = [];
 document.addEventListener('DOMContentLoaded', () => {
     getLibrary();
     let row;
-    for(let b of myLibrary){ 
-      row = document.createElement('tr'); 
-      row.innerHTML = 
-       `<td>${b.title}</td>
+    for (let b of myLibrary) {
+        row = document.createElement('tr');
+        row.innerHTML =
+        `<td>${b.title}</td>
         <td>${b.author}</td>
         <td>${b.pages}</td>
         <td>${b.read}</td>
         <td><a href="#" class="btn delete">X</a></td>`;
-      }
-      list.appendChild(row);
-    });
+        list.appendChild(row);
+    }
+});
 
 // Event listener when clicking ADD BOOK button
 btnNewBook.addEventListener('click', function() {
@@ -99,10 +99,18 @@ function addBook() {
     localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
 }
 
-function removeBook(index) {
+function removeBook(book) {
+    // Get books from LS
     getLibrary();
-    let removed = myLibrary.indexOf(index);
-    myLibrary.splice(removed, 1);
+    // Get the title of the targeted book
+    let bookToRemoved = book.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerHTML;
+
+    for(let i = 0; i < myLibrary.length; i++) {
+       
+       if(myLibrary[i].title === bookToRemoved) {
+           myLibrary.splice(i,1);
+       }
+    }
     localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
 }
 
@@ -122,7 +130,6 @@ function addBookToList() {
             <td>${value.read}</td>
             <td><a href="#" class="btn delete">X</a></td>`;
     });
-
     // Append the row to list
     list.appendChild(row);
 }
@@ -148,7 +155,7 @@ document.querySelector('.list').addEventListener('click', e => {
         showAlert('Book removed!', 'removed');     
     }  
     // Remove book from Local Storage
-    removeBook(e.target.parentElement.parentElement);  
+    removeBook(e.target);  
 });
 
 

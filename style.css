@@ -70,13 +70,24 @@ input {
 #add-btn {
     font-weight: 700;
     margin-top: 20px;
-    width: 250px;
+    width: 170px;
     height: 30px;
     border-radius: 5px 5px;
     transition: 0.5s;
+    margin: 10px;
 }
 
-#addBook-btn:hover, #add-btn:hover {
+#cancel-btn {
+    font-weight: 700;
+    margin-top: 20px;
+    width: 80px;
+    height: 30px;
+    border-radius: 5px 5px;
+    transition: 0.5s;
+    margin: 10px;
+}
+
+#addBook-btn:hover, #add-btn:hover, #cancel-btn:hover {
     background-color: #6495ED;
     cursor: pointer;
 }
@@ -98,6 +109,8 @@ th {
 }
 
 .delete {
+    position: relative;
+    right: 80px;
     color: black;
     padding-top: 3px;
     background-color: red;
@@ -136,6 +149,16 @@ th {
     right: 100px;
 }
 
-.status:hover {
+.toggle {
+    height: 25px;
+    position: relative;
+    right: 100px;
+}
+
+.status:hover, .toggle:hover {
     cursor: pointer;
+}
+
+hr {
+    width:100%;
 }

@@ -3,6 +3,7 @@ let formContainer = document.querySelector('.form-div');
 let form = document.querySelector('.form');
 let addBtn = document.querySelector('#add-btn');
 let btnNewBook = document.querySelector('#addBook-btn');
+let cancelBtn = document.querySelector('#cancel-btn')
 const list = document.querySelector('.list');
 
 // Book constructor
@@ -27,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <td>${b.author}</td>
         <td>${b.pages}</td>
         <td>${b.read}</td>
+        <td><button class="toggle">Change read status</button></td>
         <td><a href="#" class="btn delete">X</a></td>`;
         list.appendChild(row);
     }
@@ -39,7 +41,7 @@ btnNewBook.addEventListener('click', function() {
     document.querySelector('.para-div').style.display = 'none';
 });
 
-// Event listener when clicking ADD button on the form
+// Event listener when clicking SUBMIT button on the form
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     
@@ -72,6 +74,16 @@ form.addEventListener('submit', (e) => {
 
 });
 
+// Event listener when clicking RETURN button
+cancelBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.querySelector('.table-box').style.display = 'block';
+    document.querySelector('.para-div').style.display = 'block';
+    form.style.display = 'none';
+
+    form.reset();
+})
+
 // Get value of radio button
 function getRead() {
     const radioBtn = document.querySelectorAll('input[name="radio"]');
@@ -103,7 +115,7 @@ function removeBook(book) {
     // Get books from LS
     getLibrary();
     // Get the title of the targeted book
-    let bookToRemoved = book.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerHTML;
+    let bookToRemoved = book.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerHTML;
 
     for(let i = 0; i < myLibrary.length; i++) {
        
@@ -128,6 +140,7 @@ function addBookToList() {
             <td>${value.author}</td>
             <td>${value.pages}</td>
             <td>${value.read}</td>
+            <td><button class="toggle">Change read status</button></td>
             <td><a href="#" class="btn delete">X</a></td>`;
     });
     // Append the row to list
@@ -146,17 +159,29 @@ function showAlert(message, className) {
     setTimeout(() => document.querySelector('.alert').remove(), 2000);
 }
 
-// Remove book from list
+// Remove book from list & Toggle Switch
 document.querySelector('.list').addEventListener('click', e => {
     e.preventDefault();
 
     if(e.target.classList.contains('delete')) {
         e.target.parentElement.parentElement.remove();
         showAlert('Book removed!', 'removed');     
+        // Remove book from Local Storage
+        removeBook(e.target);  
     }  
-    // Remove book from Local Storage
-    removeBook(e.target);  
+    
+    if(e.target.classList.contains('toggle')) {
+        let toggle = false;
+        toggle = !toggle;
+        if(toggle) {
+            e.target.parentElement.previousElementSibling.innerHTML = 'yes';
+        } else {
+            e.target.parentElement.previousElementSibling.innerHTML = 'no';
+        }
+    }
 });
+
+console.log(Book.prototype)
 
 
 

@@ -1,4 +1,4 @@
-// Get values
+// DOM values
 let formContainer = document.querySelector('.form-div');
 let form = document.querySelector('.form');
 let addBtn = document.querySelector('#add-btn');
@@ -64,7 +64,7 @@ form.addEventListener('submit', (e) => {
     addBookToList();
 
     // Add book to Local Storage
-    addBook();
+    addBookToStorage();
 
     // Show success alert
     showAlert('Book added!', 'success');
@@ -84,48 +84,7 @@ cancelBtn.addEventListener('click', (e) => {
     form.reset();
 })
 
-// Get value of radio button
-function getRead() {
-    const radioBtn = document.querySelectorAll('input[name="radio"]');
-    let selectValue;
-
-    for(const i of radioBtn) {
-        if(i.checked) {
-            selectValue = i.value;
-        }
-    }
-    return selectValue;
-}
-
-// Storage
-function getLibrary() {
-    if(localStorage.getItem('myLibrary') === null) {
-        myLibrary = [];
-    } else {
-        myLibrary = JSON.parse(localStorage.getItem('myLibrary'));
-    }
-    return myLibrary;
-}
-
-function addBook() {
-    localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
-}
-
-function removeBook(book) {
-    // Get books from LS
-    getLibrary();
-    // Get the title of the targeted book
-    let bookToRemoved = book.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerHTML;
-
-    for(let i = 0; i < myLibrary.length; i++) {
-       
-       if(myLibrary[i].title === bookToRemoved) {
-           myLibrary.splice(i,1);
-       }
-    }
-    localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
-}
-
+// Add book to the UI
 function addBookToList() {
 
     // Create new row element
@@ -147,6 +106,7 @@ function addBookToList() {
     list.appendChild(row);
 }
 
+// Show alert message 
 function showAlert(message, className) {
     const div = document.createElement('div');
     div.className = `alert ${className}`;
@@ -159,7 +119,7 @@ function showAlert(message, className) {
     setTimeout(() => document.querySelector('.alert').remove(), 2000);
 }
 
-// Remove book from list & Toggle Switch
+// Remove book from list
 document.querySelector('.list').addEventListener('click', e => {
     e.preventDefault();
 
@@ -167,21 +127,52 @@ document.querySelector('.list').addEventListener('click', e => {
         e.target.parentElement.parentElement.remove();
         showAlert('Book removed!', 'removed');     
         // Remove book from Local Storage
-        removeBook(e.target);  
-    }  
-    
-    if(e.target.classList.contains('toggle')) {
-        let toggle = false;
-        toggle = !toggle;
-        if(toggle) {
-            e.target.parentElement.previousElementSibling.innerHTML = 'yes';
-        } else {
-            e.target.parentElement.previousElementSibling.innerHTML = 'no';
-        }
+        removeBookFromStorage(e.target);  
     }
 });
 
-console.log(Book.prototype)
+// Get value of radio button
+function getRead() {
+    const radioBtn = document.querySelectorAll('input[name="radio"]');
+    let selectValue;
+
+    for(const i of radioBtn) {
+        if(i.checked) {
+            selectValue = i.value;
+        }
+    }
+    return selectValue;
+}
+
+// Get books from array in Local Storage
+function getLibrary() {
+    if(localStorage.getItem('myLibrary') === null) {
+        myLibrary = [];
+    } else {
+        myLibrary = JSON.parse(localStorage.getItem('myLibrary'));
+    }
+    return myLibrary;
+}
+
+// Add book to Local Storage
+function addBookToStorage() {
+    localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+}
+
+// Remove book from Local Storage
+function removeBookFromStorage(book) {
+    // Get books from LS
+    getLibrary();
+    // Get the title of the targeted book
+    let bookToRemoved = book.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerHTML;
+    
+    for(let i = 0; i < myLibrary.length; i++) {
+       if(myLibrary[i].title === bookToRemoved) {
+           myLibrary.splice(i,1);
+       }
+    }
+    localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+}
 
 
 

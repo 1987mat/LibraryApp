@@ -120,6 +120,7 @@ th {
     width: 25px;
     transition: 0.5s;
     text-align: center;
+    box-shadow: 1px 3px #888888;
 }
 
 .delete:hover {
@@ -156,14 +157,8 @@ th {
     box-shadow: 1px 3px #888888;
 }
 
-.status:hover {
+.status:hover, .toggle:hover {
     cursor: pointer;
-}
-
-.toggle:hover {
-    cursor: pointer;
-    bottom: 1px;
-
 }
 
 hr {

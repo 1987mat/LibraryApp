@@ -17,23 +17,6 @@ function Book(author, title, pages, read) {
 // Empty array to store books
 let myLibrary = [];
 
-// Load page event listener
-document.addEventListener('DOMContentLoaded', () => {
-    getLibrary();
-    let row;
-    for (let b of myLibrary) {
-        row = document.createElement('tr');
-        row.innerHTML =
-        `<td>${b.title}</td>
-        <td>${b.author}</td>
-        <td>${b.pages}</td>
-        <td>${b.read}</td>
-        <td><button class="toggle">Change read status</button></td>
-        <td><a href="#" class="btn delete">X</a></td>`;
-        list.appendChild(row);
-    }
-});
-
 // Event listener when clicking ADD BOOK button
 btnNewBook.addEventListener('click', function() {
     form.style.display = 'block';
@@ -80,7 +63,6 @@ cancelBtn.addEventListener('click', (e) => {
     document.querySelector('.table-box').style.display = 'block';
     document.querySelector('.para-div').style.display = 'block';
     form.style.display = 'none';
-
     form.reset();
 })
 
@@ -90,21 +72,30 @@ function addBookToList() {
     // Create new row element
     const row = document.createElement('tr');
 
-    // Loop through myLibrary array
     myLibrary.forEach(value => {
 
         // Add the book to the table
-            row.innerHTML = `
-            <td>${value.title}</td>
-            <td>${value.author}</td>
-            <td>${value.pages}</td>
-            <td>${value.read}</td>
-            <td><button class="toggle">Change read status</button></td>
-            <td><a href="#" class="btn delete">X</a></td>`;
+        row.innerHTML = `
+          <td>${value.title}</td>
+          <td>${value.author}</td>
+          <td>${value.pages}</td>
+          <td>${value.read}</td>
+          <td><button class="toggle">Change read status</button></td>
+          <td><a href="#" class="btn delete">X</a></td>`;
+
+        list.appendChild(row);
+
+        const toggleBtn = document.querySelector('.toggle');
+        toggleBtn.onclick = (function(value) {
+            return function(){
+              value.read = !value.read;
+              console.log(value.read);
+              alert(value.read);
+            }
+        })(value);
     });
-    // Append the row to list
-    list.appendChild(row);
 }
+
 
 // Show alert message 
 function showAlert(message, className) {
@@ -174,12 +165,21 @@ function removeBookFromStorage(book) {
     localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
 }
 
-
-
-
-
-
-
-
+// Load page event listener
+document.addEventListener('DOMContentLoaded', () => {
+    getLibrary();
+    let row;
+    for (let b of myLibrary) {
+        row = document.createElement('tr');
+        row.innerHTML =
+        `<td>${b.title}</td>
+        <td>${b.author}</td>
+        <td>${b.pages}</td>
+        <td>${b.read}</td>
+        <td><button class="toggle">Change read status</button></td>
+        <td><a href="#" class="btn delete">X</a></td>`;
+        list.appendChild(row);
+    }
+});
 
 

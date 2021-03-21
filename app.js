@@ -16,7 +16,6 @@ function Book(author, title, pages, read) {
 
 // Empty array to store books
 let myLibrary = [];
-
 // Event listener when clicking ADD BOOK button
 btnNewBook.addEventListener('click', function() {
     form.style.display = 'block';
@@ -68,6 +67,8 @@ cancelBtn.addEventListener('click', (e) => {
 
 // Add book to the UI
 function addBookToList() {
+
+    console.log(myLibrary)
 
     // Create new row element
     const row = document.createElement('tr');

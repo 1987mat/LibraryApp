@@ -134,6 +134,7 @@ th {
     width: 100px;
     height: 30px;
     padding: 10px;
+    border-radius: 5px;
 }
 
 .removed {
@@ -163,4 +164,8 @@ th {
 
 hr {
     width:100%;
+}
+
+.hidden {
+  display: none;
 }

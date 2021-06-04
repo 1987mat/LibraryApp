@@ -71,15 +71,14 @@ form.addEventListener('submit', (e) => {
 
     // Clear form
     form.reset();
-
 });
 
 
 // Event listener when clicking RETURN button
 cancelBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    document.querySelector('.table-box').style.display = 'block';
-    document.querySelector('.para-div').style.display = 'block';
+    table.style.display = 'block';
+    addDiv.style.display = 'block';
     form.style.display = 'none';
     form.reset();
 });

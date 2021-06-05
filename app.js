@@ -6,6 +6,7 @@ function Book(author, title, pages, read) {
   this.read = read;
 }
 
+// DOM values
 let form = document.querySelector('.form');
 let addBtn = document.querySelector('#add-btn');
 let btnNewBook = document.querySelector('#addBook-btn');
@@ -16,6 +17,8 @@ let addDiv = document.querySelector('.add-div');
 
 // Empty array to store books
 let myLibrary = [];
+
+// EVENTS
 
 // Load page event listener
 document.addEventListener('DOMContentLoaded', () => {
@@ -44,35 +47,8 @@ btnNewBook.addEventListener('click', function() {
 // Event handler SUBMIT button on the form
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-    
-    // Hide form and show home page
-    table.style.display = 'block';
-    addDiv.style.display = 'block';
-    form.style.display = 'none';
-
-    // User input values
-    let title = document.querySelector('#title').value;
-    let author = document.querySelector('#author').value;
-    let pages = document.querySelector('#num-pages').value;
-    let read = getRead();
-
-    // Instantiate new book
-    const book = new Book(author, title, pages, read);
-
-    // Push book to the library, show it on the UI and clear the form
-    myLibrary.push(book);
-    addBookToList();
-
-    // Add book to Local Storage
-    addBookToStorage();
-
-    // Show success alert
-    showAlert('Book added!', 'success');
-
-    // Clear form
-    form.reset();
+    addBookToLibrary();
 });
-
 
 // Event listener when clicking RETURN button
 cancelBtn.addEventListener('click', (e) => {
@@ -112,7 +88,7 @@ list.addEventListener('click', e => {
 
   if(valToUpdate.innerHTML == 'yes') {
       valToUpdate.innerHTML = 'no';
-      updateLocalStorage(this.bookToUpdate, this.valToUpdate);
+      updateLocalStorage(bookToUpdate, valToUpdate);
 
   } else {
       valToUpdate.innerHTML = 'yes';
@@ -122,8 +98,50 @@ list.addEventListener('click', e => {
 });
 
 
-// FUNCTIONS
+// METHODS 
 
+function addBookToLibrary() {
+  // Hide form and show home page
+  table.style.display = 'block';
+  addDiv.style.display = 'block';
+  form.style.display = 'none';
+
+  // Get user input values
+  let title = document.querySelector('#title').value;
+  let author = document.querySelector('#author').value;
+  let pages = document.querySelector('#num-pages').value;
+  let read = getRead();
+
+  // Instantiate new book
+  const book = new Book(author, title, pages, read);
+
+  // Push book to the library, show it on the UI and clear the form
+  myLibrary.push(book);
+
+  // Create table and display the book 
+  const row = document.createElement('tr');
+  myLibrary.forEach(value => {
+
+    // Add the book to the table
+    row.innerHTML = `
+      <td>${value.title}</td>
+      <td>${value.author}</td>
+      <td>${value.pages}</td>
+      <td id="yes-no-value">${value.read}</td>
+      <td><button class="toggle">Change read status</button></td>
+      <td><a href="#" class="btn delete">X</a></td>`;
+    });
+    list.appendChild(row);
+
+  // Add book to Local Storage
+  addBookToStorage();
+
+  // Show success alert
+  showAlert('Book added!', 'success');
+
+  // Clear form
+  form.reset();
+}
 
 // Get value of radio button
 function getRead() {
@@ -136,26 +154,6 @@ function getRead() {
       }
   }
   return selectValue;
-}
-
-
-// Add book to the UI
-function addBookToList() {
-
-  const row = document.createElement('tr');
-  myLibrary.forEach(value => {
-
-    // Add the book to the table
-    row.innerHTML = `
-      <td>${value.title}</td>
-      <td>${value.author}</td>
-      <td>${value.pages}</td>
-      <td id="yes-no-value">${value.read}</td>
-      <td><button class="toggle">Change read status</button></td>
-      <td><a href="#" class="btn delete">X</a></td>`;
-
-    list.appendChild(row);
-  });
 }
 
 // Show success message 

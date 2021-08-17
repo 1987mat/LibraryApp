@@ -1,7 +1,7 @@
 # LibraryApp
 
-Library website project from 'The Odin Project'.
+Library App project from 'The Odin Project'.
 
-HTML / CSS / JS 
+HTML / CSS / Vanilla JS 
 
-Object Constructor and Local Storage.
+ES6 Classes and Local Storage.

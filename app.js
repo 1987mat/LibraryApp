@@ -1,4 +1,4 @@
-// Cache the DOM
+// DOM elements
 let form = document.querySelector('.form');
 let addBtn = document.querySelector('#add-btn');
 let btnNewBook = document.querySelector('#addBook-btn');

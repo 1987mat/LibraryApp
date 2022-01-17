@@ -1,171 +1,206 @@
 body {
-    background-color: #FAF0E6;
-    font-family: 'Ubuntu', sans-serif;
-    box-sizing: border-box;
+  background-color: #faf0e6;
+  font-family: 'Ubuntu', sans-serif;
+  box-sizing: border-box;
 }
 
 .heading {
-    text-align: center;
-    font-size: 30px;
-    margin-bottom: 80px;
+  font-size: 2rem;
+  text-align: center;
+  margin-top: -1em;
+  margin-bottom: 3em;
 }
 
 .main-div {
-    margin-top: 50px;
-    text-align: center;
+  margin-top: 3.125em;
+  text-align: center;
 }
 
 p {
-    margin: 30px auto;
-    font-weight: 800;
-    font-size: 18px;
+  margin: 2em auto;
+  font-weight: 800;
+  font-size: 1.2rem;
 }
 
 #addBook-btn {
-    box-shadow: 1px 3px #888888;
-    width: 150px;
-    height: 40px;
-    border-radius: 5px 5px;
-    transition: 0.5s;
-    font-size: 15px;
-    font-weight: bold;
+  box-shadow: 1px 3px #888888;
+  width: 10em;
+  height: 3em;
+  border-radius: 5px 5px;
+  border: none;
+  transition: 0.5s;
+  font-size: 1rem;
+  font-weight: bold;
 }
 
 .form {
-    box-shadow: 5px 10px #888888;
-    border: black 1px solid;
-    border-radius: 10px 10px;
-    width: 300px;
-    padding: 15px;
-    display: none;
-    position: absolute;
-    top: 150px;
-    left: 0; 
-    right: 0; 
-    margin-left: auto; 
-    margin-right: auto; 
-    z-index: 0;
+  box-shadow: 5px 10px #888888;
+  border: black 1px solid;
+  border-radius: 10px 10px;
+  width: 19em;
+  padding: 1em;
+  display: none;
+  position: absolute;
+  top: 10em;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 5;
 }
 
-span, label {
-    font-weight: bold;
-    font-size: 20px;
+label {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin: 3em;
+}
+
+span {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-top: 2em;
 }
 
 input {
-    margin: 10px;
-    width: 250px;
+  margin-bottom: 1em;
+  padding: 0.2em;
+  width: 18em;
 }
 
-#yes, #no {
-    margin-top: 20px;
-    width: 20px;
+.yes,
+.no {
+  margin: 1em;
+}
 
+#yes,
+#no {
+  margin-top: 2em;
+  width: 1.25em;
 }
 
 .button-div {
-    text-align: center;
+  text-align: center;
 }
 
 #add-btn {
-    font-weight: 700;
-    margin-top: 20px;
-    width: 170px;
-    height: 30px;
-    border-radius: 5px 5px;
-    transition: 0.5s;
-    margin: 10px;
+  box-shadow: 1px 3px #888888;
+  font-weight: 700;
+  margin-top: 1em;
+  width: 13em;
+  height: 2.5em;
+  border-radius: 5px 5px;
+  border: none;
+  transition: 0.5s;
+  margin: 2em 0.5em;
 }
 
 #cancel-btn {
-    font-weight: 700;
-    margin-top: 20px;
-    width: 80px;
-    height: 30px;
-    border-radius: 5px 5px;
-    transition: 0.5s;
-    margin: 10px;
+  box-shadow: 1px 3px #888888;
+  font-weight: 700;
+  margin-top: 1em;
+  width: 5em;
+  height: 2.5em;
+  border-radius: 5px 5px;
+  border: none;
+  transition: 0.5s;
+  margin: 0.5em;
 }
 
-#addBook-btn:hover, #add-btn:hover, #cancel-btn:hover {
-    background-color: #6495ED;
-    cursor: pointer;
+#addBook-btn:hover,
+#add-btn:hover,
+#cancel-btn:hover {
+  background-color: #6495ed;
+  cursor: pointer;
 }
 
-table, th , td {
-    border: none;
-    border-collapse: collapse;
-    min-width: 220px;
+table,
+th,
+td {
+  border: none;
+  border-collapse: collapse;
+  min-width: 13em;
 }
 
 th {
-    font-size: 20px;
-    text-align: left;
+  font-size: 1rem;
+  text-align: left;
 }
 
 .table-box {
-    margin: 50px;
-    margin-bottom: 300px;
+  margin: 5em;
+  margin-bottom: 18em;
 }
 
 .delete {
-    position: relative;
-    right: 80px;
-    color: black;
-    padding-top: 3px;
-    background-color: red;
-    display: inline-block;
-    text-decoration: none;
-    height: 25px;
-    width: 25px;
-    transition: 0.5s;
-    text-align: center;
-    box-shadow: 1px 3px #888888;
+  position: relative;
+  right: 5em;
+  color: black;
+  padding-top: 0.1em;
+  background-color: red;
+  display: inline-block;
+  text-decoration: none;
+  height: 1.5em;
+  width: 1.5em;
+  transition: 0.5s;
+  text-align: center;
+  font-weight: 800;
+  box-shadow: 1px 3px #888888;
 }
 
 .delete:hover {
-    cursor: pointer;
-    background-color: #B22222;
+  cursor: pointer;
+  background-color: #b22222;
 }
 
 .success {
-    position: absolute;
-    background-color: #32CD32;
-    width: 100px;
-    height: 30px;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.removed {
-    position: absolute;
-    background-color: red;
-    width: 120px;
-    height: 35px;
-    padding: 10px;
+  position: absolute;
+  background-color: #32cd32;
+  width: 6em;
+  height: 1.8em;
+  padding: 1em;
+  border-radius: 5px;
+  font-weight: 800;
 }
 
 .status {
-    height: 20px;
-    position: relative;
-    right: 100px;
+  height: 1em;
+  position: relative;
+  right: 6em;
 }
 
 .toggle {
-    height: 25px;
-    position: relative;
-    right: 100px;
-    box-shadow: 1px 3px #888888;
+  height: 2em;
+  position: relative;
+  right: 6em;
+  box-shadow: 1px 3px #888888;
+  border: none;
+  border-radius: 5px 5px;
 }
 
-.status:hover, .toggle:hover {
-    cursor: pointer;
+.status:hover,
+.toggle:hover {
+  cursor: pointer;
+  background-color: #6495ed;
 }
 
 hr {
-    width:100%;
+  width: 100%;
 }
 
 .hidden {
   display: none;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 0.5em;
+}
+
+footer a {
+  text-decoration: none;
+  color: #000000;
 }

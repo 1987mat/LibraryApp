@@ -1,7 +1,5 @@
-# LibraryApp
+Library CRUD App
 
-Library App project from 'The Odin Project'.
+HTML / CSS / Vanilla JS
 
-HTML / CSS / Vanilla JS 
-
-ES6 Class and Local Storage.
+ES6 Class & Local Storage.

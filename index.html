@@ -9,6 +9,11 @@
       href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
     <script
       type="module"
       src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons/ionicons.esm.js"
@@ -25,30 +30,38 @@
         <p>Click the button below and add a new book to the list</p>
         <button id="addBook-btn">+ ADD BOOK</button>
       </div>
-      <!-- FORM POPUP -->
-      <form action="#" class="form">
-        <label for="title">Title</label>
-        <input type="text" id="title" required />
-        <label for="author">Author</label>
-        <input type="text" id="author" required />
-        <label for="num-pages">No. of pages</label>
-        <input type="number" id="num-pages" required />
-        <br />
-        <span>Have you read this book?</span>
-        <br />
-        <input type="radio" name="radio" id="yes" value="yes" checked />
-        <label for="yes" class="yes">Yes</label>
-        <input type="radio" name="radio" id="no" value="no" />
-        <label for="no" class="no">No</label>
-        <div class="button-div">
-          <button id="add-btn" type="submit">SUBMIT</button>
-          <button id="cancel-btn" type="submit">CANCEL</button>
-        </div>
-      </form>
+      <!-- POPUP -->
+      <div class="pop-up">
+        <form action="#">
+          <div class="form-top">
+            <input type="text" id="title" required placeholder="Title" />
+            <input type="text" id="author" required placeholder="Author" />
+            <input
+              type="number"
+              id="num-pages"
+              required
+              placeholder="No. of pages"
+            />
+          </div>
+          <span>Have you read this book?</span>
+          <div>
+            <input type="radio" name="radio" id="yes" value="yes" checked />
+            <label for="yes" class="yes">Yes</label>
+            <input type="radio" name="radio" id="no" value="no" />
+            <label for="no" class="no">No</label>
+          </div>
+          <div class="buttons-div">
+            <button id="submit-btn" type="submit">SUBMIT</button>
+            <button id="cancel-btn" type="submit">CANCEL</button>
+          </div>
+        </form>
+      </div>
     </div>
     <!-- DISPLAY LIST -->
     <div class="table-box">
-      <hr />
+      <a href="#" class="clear-list-btn"
+        ><i class="fa fa-times-circle" aria-hidden="true"></i
+      ></a>
       <table>
         <thead>
           <tr>
@@ -61,14 +74,6 @@
         <tbody class="list"></tbody>
       </table>
     </div>
-
-    <footer>
-      Developed by Mat
-      <a href="https://github.com/1987mat" target="_blank"
-        ><ion-icon class="github" name="logo-github"></ion-icon
-      ></a>
-    </footer>
-
     <script src="app.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   </body>

@@ -36,8 +36,13 @@ document.addEventListener('DOMContentLoaded', () => {
   getLibrary();
 
   showHideTable();
+  let toggleClass;
 
   for (let i = 0; i < myLibrary.length; i++) {
+    myLibrary[i].read === 'yes'
+      ? (toggleClass = 'fa-toggle-on')
+      : (toggleClass = 'fa-toggle-off');
+
     let row = document.createElement('tr');
     row.setAttribute('id', `${i}`);
     row.classList.add('row');
@@ -45,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <td>${myLibrary[i].author}</td>
       <td>${myLibrary[i].pages}</td>
       <td>${myLibrary[i].read}</td>
-      <td><button class="toggle-status">Change read status</button></td>
+      <td><i class="fa ${toggleClass}"></i></td>
       <td><a href="#" class="btn-delete"><i class="fa fa-trash" aria-hidden="true"></i>`;
     list.appendChild(row);
   }
@@ -135,14 +140,20 @@ function renderBook() {
   let row = document.createElement('tr');
 
   myLibrary.forEach((value, index) => {
+    let toggleClass;
+
+    value.read === 'yes'
+      ? (toggleClass = 'fa-toggle-on')
+      : (toggleClass = 'fa-toggle-off');
+
     row.setAttribute('id', `${index}`);
     row.classList.add('row');
     row.innerHTML = `
       <td>${value.title}</td>
       <td>${value.author}</td>
       <td>${value.pages}</td>
-      <td id="yes-no-value">${value.read}</td>
-      <td><button class="toggle-status">Change read status</button></td>
+      <td>${value.read}</td>
+      <td><i class="fa ${toggleClass}"></i></td>
       <td><a href="#" class="btn-delete"><i class="fa fa-trash" aria-hidden="true"></i>
       </a></td>`;
     list.appendChild(row);
@@ -204,17 +215,20 @@ list.addEventListener('click', (e) => {
     });
   }
 
-  // Change read status
-  if (e.target.classList.contains('toggle-status')) {
+  // Toggle read status
+  let valToUpdate;
+  if (e.target.classList.contains('fa-toggle-on')) {
     valToUpdate = e.target.parentElement.previousElementSibling;
-
-    if (valToUpdate.innerHTML == 'yes') {
-      valToUpdate.innerHTML = 'no';
-      updateLocalStorage(e.target, valToUpdate);
-    } else {
-      valToUpdate.innerHTML = 'yes';
-      updateLocalStorage(e.target, valToUpdate);
-    }
+    e.target.classList.remove('fa-toggle-on');
+    e.target.classList.add('fa-toggle-off');
+    valToUpdate.innerHTML = 'no';
+    updateLocalStorage(e.target, valToUpdate);
+  } else if (e.target.classList.contains('fa-toggle-off')) {
+    valToUpdate = e.target.parentElement.previousElementSibling;
+    e.target.classList.remove('fa-toggle-off');
+    e.target.classList.add('fa-toggle-on');
+    valToUpdate.innerHTML = 'yes';
+    updateLocalStorage(e.target, valToUpdate);
   }
 });
 

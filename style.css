@@ -15,11 +15,6 @@ body {
   width: 100vw;
   gap: 2em;
   background: rgb(196, 196, 213);
-  background: linear-gradient(
-    90deg,
-    rgba(196, 196, 213, 1) 0%,
-    rgba(255, 255, 255, 1) 100%
-  );
 }
 
 .heading {
@@ -196,12 +191,8 @@ input {
 }
 
 .table-box {
-  display: flex;
-  flex-direction: column;
-  position: relative;
   opacity: 0;
   visibility: 0;
-  padding: 2em 10em;
 }
 
 .table-box.show {
@@ -218,13 +209,13 @@ table {
   border-radius: 10px;
 }
 
-/* tr {
-  display: flex;
-} */
-
 td,
 th {
   padding: 1em 4em;
+}
+
+.toggle-switch:hover {
+  cursor: pointer;
 }
 
 .btn-delete i {
@@ -247,6 +238,11 @@ th {
   background-color: #e1ebee;
   border-radius: 5px;
 }
+
+/* .read-status {
+  display: flex;
+  gap: 2em;
+} */
 
 .toggle-status {
   font-weight: 600;
@@ -273,7 +269,7 @@ th {
 /* Media Queries */
 
 /* MOBILE  */
-@media screen and (min-width: 320px) {
+/* @media screen and (min-width: 320px) {
   html {
     font-size: 50%;
   }
@@ -284,27 +280,28 @@ th {
 
   /* td,
   th {
-    padding: 1em 1em;
+    padding: 1em 2em;
+    font-size: 30%;
   } */
 
-  /* input {
+/* input {
     width: 90%;
   } */
 
-  .buttons-div {
+/* .buttons-div {
     flex-direction: column;
-  }
-}
+  } 
+} */
 
 /* MOBILE LANDSCAPE */
-@media screen and (min-width: 480px) {
+/* @media screen and (min-width: 480px) {
   html {
     font-size: 60%;
   }
-}
+} */
 
 /* TABLET */
-@media screen and (min-width: 768px) {
+/* @media screen and (min-width: 768px) {
   html {
     font-size: 70%;
   }
@@ -317,18 +314,18 @@ th {
   th {
     padding: 1em 4em;
   }
-}
+} */
 
 /* DESKTOP & TABLET LANDSCAPE */
-@media screen and (min-width: 992px) {
+/* @media screen and (min-width: 992px) {
   html {
     font-size: 90%;
   }
-}
+} */
 
 /* LARGE SCREENS */
-@media screen and (min-width: 1200px) {
+/* @media screen and (min-width: 1200px) {
   html {
     font-size: 100%;
   }
-}
+} */

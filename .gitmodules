@@ -1,0 +1,3 @@
+[submodule "LibraryApp"]
+path = LibraryApp
+url = https://github.com/1987mat/LibraryApp.git

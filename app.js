@@ -46,12 +46,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let row = document.createElement('tr');
     row.setAttribute('id', `${i}`);
     row.classList.add('row');
-    row.innerHTML = `<td>${myLibrary[i].title}</td>
-      <td>${myLibrary[i].author}</td>
-      <td>${myLibrary[i].pages}</td>
+    row.innerHTML = `
+      <td><input type="text" value="${myLibrary[i].title}" readonly></input></td>
+      <td><input type="text" value="${myLibrary[i].author}" readonly></input></td>
+      <td><input class="pages" type="number" value="${myLibrary[i].pages}" readonly></td>
       <td>${myLibrary[i].read}</td>
       <td><i class="fa ${toggleClass}"></i></td>
-      <td><a href="#" class="btn-delete"><i class="fa fa-trash" aria-hidden="true"></i>`;
+      <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
+      <td><i class="fa fa-trash" aria-hidden="true"></i>`;
     list.appendChild(row);
   }
 });
@@ -110,7 +112,7 @@ form.addEventListener('submit', (e) => {
 
   showHideTable();
   // Show success alert
-  showAlert('Book added', 'success');
+  showAlert();
 
   // Clear form
   form.reset();
@@ -149,13 +151,13 @@ function renderBook() {
     row.setAttribute('id', `${index}`);
     row.classList.add('row');
     row.innerHTML = `
-      <td>${value.title}</td>
-      <td>${value.author}</td>
-      <td>${value.pages}</td>
+      <td><input type="text" value="${myLibrary[i].title}" readonly></input></td>
+      <td><input type="text" value="${myLibrary[i].author}" readonly></input></td>
+      <td><input type="number" value="${myLibrary[i].pages}" readonly></input></td>
       <td>${value.read}</td>
       <td><i class="fa ${toggleClass}"></i></td>
-      <td><a href="#" class="btn-delete"><i class="fa fa-trash" aria-hidden="true"></i>
-      </a></td>`;
+      <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
+      <td><i class="fa fa-trash" aria-hidden="true"></i></td>`;
     list.appendChild(row);
   });
 }
@@ -173,26 +175,18 @@ function getReadStatus() {
 }
 
 // Show alert message
-function showAlert(message, className) {
-  const div = document.createElement('div');
-  div.className = `alert ${className}`;
-  const textMessage = document.createTextNode(message);
-  div.appendChild(textMessage);
-  const container = document.querySelector('.main-div');
-  document.body.insertBefore(div, container);
+function showAlert() {
+  const messageDiv = document.querySelector('.message-success');
+  messageDiv.classList.add('show');
 
-  // Clear the alert after 2 seconds
-  setTimeout(() => document.querySelector('.alert').remove(), 2000);
+  setTimeout(() => messageDiv.classList.remove('show'), 2000);
 }
 
 list.addEventListener('click', (e) => {
   e.preventDefault();
 
   // Remove book from list
-  if (
-    e.target.classList.contains('btn-delete') ||
-    e.target.classList.contains('fa-trash')
-  ) {
+  if (e.target.classList.contains('fa-trash')) {
     // Show popup
     swal('Are you sure you want to delete the book?', {
       buttons: ['Cancel', 'Yes'],
@@ -213,6 +207,34 @@ list.addEventListener('click', (e) => {
         showHideTable();
       }
     });
+  }
+
+  // Edit mode
+  if (e.target.classList.contains('fa-pencil')) {
+    let parent = e.target.parentElement.parentElement;
+    const items = parent.querySelectorAll('input');
+    items.forEach((item) => {
+      item.classList.add('edit');
+      item.readOnly = false;
+    });
+
+    e.target.classList.remove('fa-pencil');
+    e.target.classList.add('fa-check');
+
+    e.target.addEventListener('click', () => {
+      e.target.classList.toggle('fa-check');
+    });
+  }
+
+  if (e.target.classList.contains('fa-check')) {
+    let parent = e.target.parentElement.parentElement;
+
+    const items = parent.querySelectorAll('input');
+    items.forEach((item) => {
+      item.classList.remove('edit');
+      item.readOnly = true;
+    });
+    e.target.classList.remove('show');
   }
 
   // Toggle read status

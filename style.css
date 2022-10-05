@@ -207,28 +207,69 @@ table {
   border-radius: 5px;
 }
 
+.row input {
+  border: none;
+  background-color: transparent;
+  border-radius: 5px;
+}
+
+.row input.edit {
+  border: 0.5px solid gray;
+  background-color: white;
+}
+
+.row .fa-check:hover {
+  cursor: pointer;
+}
+
+.row .fa-check.show {
+  opacity: 1;
+  visibility: visible;
+}
+
 .fa-toggle-on:hover,
 .fa-toggle-off:hover {
   cursor: pointer;
 }
 
-.btn-delete i {
+.fa-trash,
+.fa-pencil {
   color: #000000;
   transition: transform 0.2s ease-in-out;
 }
 
-.btn-delete i:hover {
-  transform: scale(1.1);
+.fa-pencil.hide {
+  opacity: 0;
+  visibility: hidden;
 }
 
-.success {
+.fa-trash:hover,
+.fa-pencil:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.message-success {
   text-align: center;
+  display: inline;
   position: absolute;
   top: 5px;
   left: 10px;
   width: 10em;
   padding: 1em;
   font-weight: 800;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.message-success.show {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.fa-check {
+  color: green;
 }
 
 /* Media Queries */

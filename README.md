@@ -6,7 +6,7 @@
 
 - [Repo](https://github.com/1987mat/LibraryApp 'Repo')
 
-- [Live](<Homepage url> 'Live View')
+- [Live](https://1987mat.github.io/LibraryApp 'Live View')
 
 ## Screenshots
 

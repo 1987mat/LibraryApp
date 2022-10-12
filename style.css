@@ -6,6 +6,10 @@
   color: #282828;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -14,7 +18,7 @@ body {
   overflow-x: hidden;
   width: 100vw;
   gap: 2em;
-  background-color: #f8f8ff;
+  background-color: #f0ffff;
 }
 
 /* HEADING SECTION */
@@ -57,14 +61,14 @@ p {
 }
 
 #addBook-btn {
-  width: 15em;
+  width: 20em;
   height: 3em;
   border-radius: 50px;
   border: none;
   transition: 0.5s;
   font-size: 1rem;
   font-weight: 800;
-  background-color: whitesmoke;
+  background-color: white;
   box-shadow: 0 4px 4px -4px black;
 }
 
@@ -135,26 +139,28 @@ input {
 .buttons-div {
   width: 25em;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 0.5em;
+  gap: 1em;
+}
+
+.buttons-div button {
+  width: 80%;
 }
 
 #submit-btn {
-  width: 40%;
   font-weight: 600;
   background-color: #e1ebee;
-  padding: 1em;
+  padding: 0.8em;
   border-radius: 5px;
   border: none;
   transition: background-color 0.2s ease-in-out;
 }
 
 #cancel-btn {
-  width: 40%;
   font-weight: 600;
-  background-color: #e1ebee;
-  padding: 1em;
+  padding: 0.8em;
   border-radius: 5px;
   border: none;
   transition: background-color 0.2s ease-in-out;
@@ -170,7 +176,7 @@ input {
 .clear-list-btn {
   align-self: flex-end;
   position: absolute;
-  right: -5px;
+  right: -10px;
   z-index: 10;
   font-size: 1.5rem;
   transition: transform 0.2s ease-in-out;
@@ -187,18 +193,17 @@ input {
   justify-content: center;
   align-items: center;
   position: relative;
-  opacity: 0;
-  visibility: hidden;
+  visibility: visible;
+  margin-top: 2em;
 }
 
-.table-box.show {
-  opacity: 1;
-  visibility: visible;
+.table-box.hide {
+  visibility: hidden;
 }
 
 table {
   width: 100%;
-  background-color: #e2f0f9;
+  background-color: white;
   margin-top: 2em;
   margin-bottom: 10em;
   box-shadow: 1px 1px 1px gray;
@@ -222,7 +227,7 @@ tr {
 }
 
 tr.saved {
-  background-color: lightskyblue;
+  background-color: lightcyan;
   opacity: 0.8;
   transform: scale(1.02);
 }
@@ -247,10 +252,6 @@ tr.saved {
 .row .fa-check.show {
   opacity: 1;
   visibility: visible;
-}
-
-.fa-toggle-on {
-  color: blue;
 }
 
 .fa-toggle-on:hover,
@@ -319,12 +320,9 @@ tr.saved {
     font-size: 20%;
   }
 
-  .buttons-div {
-    flex-direction: column;
-  }
-
   .clear-list-btn {
-    top: 10px;
+    top: 8px;
+    right: -3px;
   }
 }
 
@@ -336,10 +334,7 @@ tr.saved {
 
   .clear-list-btn {
     top: 15px;
-  }
-
-  .buttons-div {
-    flex-direction: row;
+    right: -8px;
   }
 
   table input {

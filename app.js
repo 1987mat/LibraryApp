@@ -9,12 +9,10 @@ const table = document.querySelector('.table-box');
 const addBookDiv = document.querySelector('.add-book-div');
 const clearBtn = document.querySelector('.clear-list-btn');
 
-// Empty array to store books
 let myLibrary = [];
-
 let editMode = false;
 
-// Create Book Class
+// Book Class
 class Book {
   constructor(author, title, pages, read) {
     this.author = author;
@@ -30,16 +28,13 @@ function getLibrary() {
     myLibrary = [];
   } else {
     myLibrary = JSON.parse(localStorage.getItem('myLibrary'));
-    table.classList.add('show');
   }
   return myLibrary;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   getLibrary();
-  if (table.classList.contains('show') && !myLibrary.length) {
-    table.classList.remove('show');
-  }
+  hideTable();
 
   let toggleClass;
   for (let i = 0; i < myLibrary.length; i++) {
@@ -67,27 +62,17 @@ btnNewBook.addEventListener('click', () => {
   popUp.classList.add('show');
   heading.classList.add('hide');
   addBookDiv.classList.add('hide');
-  table.classList.remove('show');
+  table.classList.add('hide');
 });
-
-function showHideTable() {
-  if (!myLibrary.length) {
-    // table.classList.remove('show');
-    clearBtn.classList.remove('show');
-  } else {
-    // table.classList.add('show');
-    clearBtn.classList.add('show');
-  }
-}
 
 cancelBtn.addEventListener('click', (e) => {
   e.preventDefault();
-  // showHideTable();
   addBookDiv.classList.remove('hide');
   heading.classList.remove('hide');
   popUp.classList.remove('show');
-  table.classList.remove('show');
+  table.classList.remove('hide');
   form.reset();
+  hideTable();
 });
 
 // Submit popup form
@@ -136,9 +121,12 @@ clearBtn.addEventListener('click', () => {
       });
 
       myLibrary.splice(0);
+      while (list.firstChild) {
+        list.firstChild.remove();
+      }
+
+      hideTable();
       localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
-      table.classList.remove('show');
-      clearBtn.classList.remove('show');
     }
   });
 });
@@ -148,7 +136,6 @@ function renderBook() {
 
   myLibrary.forEach((value, index) => {
     let toggleClass;
-
     // Display toggle icon on or off
     value.read === 'yes'
       ? (toggleClass = 'fa-toggle-on')
@@ -165,7 +152,16 @@ function renderBook() {
       <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
       <td><i class="fa fa-trash" aria-hidden="true"></i></td>`;
     list.appendChild(row);
+    table.classList.remove('hide');
   });
+}
+
+function hideTable() {
+  if (!myLibrary.length) {
+    table.classList.add('hide');
+  } else {
+    table.classList.add('show');
+  }
 }
 
 function getReadStatus() {
@@ -180,11 +176,10 @@ function getReadStatus() {
   return selectValue;
 }
 
-// Show alert message
+// Alert message
 function showAlert() {
   const messageDiv = document.querySelector('.message-success');
   messageDiv.classList.add('show');
-
   setTimeout(() => messageDiv.classList.remove('show'), 2000);
 }
 
@@ -206,9 +201,8 @@ list.addEventListener('click', (e) => {
 
         let bookToRemove = e.target.parentElement.parentElement;
         bookToRemove.remove();
-
-        // Remove book from Local Storage
-        removeBookFromStorage(e.target);
+        removeBookFromStorage(bookToRemove.id);
+        hideTable();
       }
     });
   }
@@ -229,22 +223,8 @@ list.addEventListener('click', (e) => {
 
     // Save edited book
   } else if (e.target.classList.contains('fa-check') && editMode) {
-    editMode = false;
-    let parent = e.target.parentElement.parentElement;
-    parent.classList.remove('edit-mode');
-
-    const items = parent.querySelectorAll('input');
-    items.forEach((item) => {
-      item.classList.remove('edit');
-      item.readOnly = true;
-    });
-
-    e.target.classList.remove('fa-check');
-    e.target.classList.add('fa-pencil');
-    let book = e.target.closest('.row');
-    book.classList.add('saved');
-    setTimeout(() => book.classList.remove('saved'), 1000);
-    updateLocalStorage(book);
+    let target = e.target;
+    editBook(target);
   }
 
   // Toggle read status
@@ -264,12 +244,40 @@ list.addEventListener('click', (e) => {
   }
 });
 
+// Enter key event in edit mode
+document.addEventListener('keydown', (e) => {
+  let target = list.querySelector('.fa-check');
+
+  if (editMode && e.key === 'Enter') {
+    editBook(target);
+  }
+});
+
+function editBook(target) {
+  editMode = false;
+  let parent = target.parentElement.parentElement;
+  parent.classList.remove('edit-mode');
+
+  const items = parent.querySelectorAll('input');
+  items.forEach((item) => {
+    item.classList.remove('edit');
+    item.readOnly = true;
+  });
+
+  target.classList.remove('fa-check');
+  target.classList.add('fa-pencil');
+  let book = target.closest('.row');
+  book.classList.add('saved');
+  setTimeout(() => book.classList.remove('saved'), 1000);
+  updateLocalStorage(book);
+}
+
 // Remove book from Local Storage
-function removeBookFromStorage(book) {
+function removeBookFromStorage(bookID) {
   getLibrary();
 
   for (let i = 0; i < myLibrary.length; i++) {
-    if (i == book.id) {
+    if (i == bookID) {
       myLibrary.splice(i, 1);
     }
   }

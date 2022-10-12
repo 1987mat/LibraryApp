@@ -12,6 +12,8 @@ const clearBtn = document.querySelector('.clear-list-btn');
 // Empty array to store books
 let myLibrary = [];
 
+let editMode = false;
+
 // Create Book Class
 class Book {
   constructor(author, title, pages, read) {
@@ -28,16 +30,18 @@ function getLibrary() {
     myLibrary = [];
   } else {
     myLibrary = JSON.parse(localStorage.getItem('myLibrary'));
+    table.classList.add('show');
   }
   return myLibrary;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   getLibrary();
+  if (table.classList.contains('show') && !myLibrary.length) {
+    table.classList.remove('show');
+  }
 
-  showHideTable();
   let toggleClass;
-
   for (let i = 0; i < myLibrary.length; i++) {
     myLibrary[i].read === 'yes'
       ? (toggleClass = 'fa-toggle-on')
@@ -47,8 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
     row.setAttribute('id', `${i}`);
     row.classList.add('row');
     row.innerHTML = `
-      <td><input type="text" value="${myLibrary[i].title}" readonly></input></td>
       <td><input type="text" value="${myLibrary[i].author}" readonly></input></td>
+      <td><input type="text" value="${myLibrary[i].title}" readonly></input></td>
       <td><input class="pages" type="number" value="${myLibrary[i].pages}" readonly></td>
       <td>${myLibrary[i].read}</td>
       <td><i class="fa ${toggleClass}"></i></td>
@@ -68,24 +72,25 @@ btnNewBook.addEventListener('click', () => {
 
 function showHideTable() {
   if (!myLibrary.length) {
-    table.classList.remove('show');
+    // table.classList.remove('show');
     clearBtn.classList.remove('show');
   } else {
-    table.classList.add('show');
+    // table.classList.add('show');
     clearBtn.classList.add('show');
   }
 }
 
 cancelBtn.addEventListener('click', (e) => {
   e.preventDefault();
-  showHideTable();
+  // showHideTable();
   addBookDiv.classList.remove('hide');
   heading.classList.remove('hide');
   popUp.classList.remove('show');
+  table.classList.remove('show');
   form.reset();
 });
 
-// Submit form
+// Submit popup form
 form.addEventListener('submit', (e) => {
   e.preventDefault();
 
@@ -95,8 +100,8 @@ form.addEventListener('submit', (e) => {
   popUp.classList.remove('show');
 
   // Get user input values
-  let title = document.querySelector('#title').value;
   let author = document.querySelector('#author').value;
+  let title = document.querySelector('#title').value;
   let pages = document.querySelector('#num-pages').value;
   let read = getReadStatus();
 
@@ -110,7 +115,6 @@ form.addEventListener('submit', (e) => {
   // Add book to Local Storage
   localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
 
-  showHideTable();
   // Show success alert
   showAlert();
 
@@ -118,6 +122,7 @@ form.addEventListener('submit', (e) => {
   form.reset();
 });
 
+// Delete whole list
 clearBtn.addEventListener('click', () => {
   // Show popup
   swal('Are you sure you want to clear the list?', {
@@ -144,6 +149,7 @@ function renderBook() {
   myLibrary.forEach((value, index) => {
     let toggleClass;
 
+    // Display toggle icon on or off
     value.read === 'yes'
       ? (toggleClass = 'fa-toggle-on')
       : (toggleClass = 'fa-toggle-off');
@@ -151,9 +157,9 @@ function renderBook() {
     row.setAttribute('id', `${index}`);
     row.classList.add('row');
     row.innerHTML = `
-      <td><input type="text" value="${myLibrary[i].title}" readonly></input></td>
-      <td><input type="text" value="${myLibrary[i].author}" readonly></input></td>
-      <td><input type="number" value="${myLibrary[i].pages}" readonly></input></td>
+      <td><input type="text" value="${value.author}" readonly></input></td>
+      <td><input type="text" value="${value.title}" readonly></input></td>
+      <td><input type="number" value="${value.pages}" readonly></input></td>
       <td>${value.read}</td>
       <td><i class="fa ${toggleClass}"></i></td>
       <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
@@ -185,7 +191,7 @@ function showAlert() {
 list.addEventListener('click', (e) => {
   e.preventDefault();
 
-  // Remove book from list
+  // Delete book
   if (e.target.classList.contains('fa-trash')) {
     // Show popup
     swal('Are you sure you want to delete the book?', {
@@ -197,21 +203,21 @@ list.addEventListener('click', (e) => {
           text: 'You deleted the item',
           icon: 'success',
         });
-        let bookToRemove = e.target.parentElement.parentElement.parentElement;
+
+        let bookToRemove = e.target.parentElement.parentElement;
         bookToRemove.remove();
 
         // Remove book from Local Storage
         removeBookFromStorage(e.target);
-
-        // Hide table if there are no books
-        showHideTable();
       }
     });
   }
 
   // Edit mode
-  if (e.target.classList.contains('fa-pencil')) {
+  if (e.target.classList.contains('fa-pencil') && !editMode) {
+    editMode = true;
     let parent = e.target.parentElement.parentElement;
+    parent.classList.add('edit-mode');
     const items = parent.querySelectorAll('input');
     items.forEach((item) => {
       item.classList.add('edit');
@@ -221,20 +227,24 @@ list.addEventListener('click', (e) => {
     e.target.classList.remove('fa-pencil');
     e.target.classList.add('fa-check');
 
-    e.target.addEventListener('click', () => {
-      e.target.classList.toggle('fa-check');
-    });
-  }
-
-  if (e.target.classList.contains('fa-check')) {
+    // Save edited book
+  } else if (e.target.classList.contains('fa-check') && editMode) {
+    editMode = false;
     let parent = e.target.parentElement.parentElement;
+    parent.classList.remove('edit-mode');
 
     const items = parent.querySelectorAll('input');
     items.forEach((item) => {
       item.classList.remove('edit');
       item.readOnly = true;
     });
-    e.target.classList.remove('show');
+
+    e.target.classList.remove('fa-check');
+    e.target.classList.add('fa-pencil');
+    let book = e.target.closest('.row');
+    book.classList.add('saved');
+    setTimeout(() => book.classList.remove('saved'), 1000);
+    updateLocalStorage(book);
   }
 
   // Toggle read status
@@ -244,13 +254,13 @@ list.addEventListener('click', (e) => {
     e.target.classList.remove('fa-toggle-on');
     e.target.classList.add('fa-toggle-off');
     valToUpdate.innerHTML = 'no';
-    updateLocalStorage(e.target, valToUpdate);
+    updateLocalStorageToggle(e.target, valToUpdate);
   } else if (e.target.classList.contains('fa-toggle-off')) {
     valToUpdate = e.target.parentElement.previousElementSibling;
     e.target.classList.remove('fa-toggle-off');
     e.target.classList.add('fa-toggle-on');
     valToUpdate.innerHTML = 'yes';
-    updateLocalStorage(e.target, valToUpdate);
+    updateLocalStorageToggle(e.target, valToUpdate);
   }
 });
 
@@ -258,10 +268,8 @@ list.addEventListener('click', (e) => {
 function removeBookFromStorage(book) {
   getLibrary();
 
-  let bookToRemoveID = book.closest('.row').id;
-
   for (let i = 0; i < myLibrary.length; i++) {
-    if (i == bookToRemoveID) {
+    if (i == book.id) {
       myLibrary.splice(i, 1);
     }
   }
@@ -270,7 +278,7 @@ function removeBookFromStorage(book) {
 }
 
 // Update read status in LS
-function updateLocalStorage(book, value) {
+function updateLocalStorageToggle(book, value) {
   getLibrary();
 
   for (let i in myLibrary) {
@@ -278,6 +286,28 @@ function updateLocalStorage(book, value) {
       myLibrary[i].read = value.innerHTML;
     }
   }
+
+  localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+}
+
+// Update edited book in LS
+function updateLocalStorage(book) {
+  getLibrary();
+
+  let editedArr = [];
+  for (let i = 0; i <= book.children.length; i++) {
+    if (i < 3) {
+      editedArr.push(book.children[i].firstChild.value);
+    }
+  }
+
+  myLibrary.forEach((el, index) => {
+    if (book.id == index) {
+      el.author = editedArr[0];
+      el.title = editedArr[1];
+      el.pages = editedArr[2];
+    }
+  });
 
   localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
 }

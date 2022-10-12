@@ -39,8 +39,8 @@
       <div class="pop-up">
         <form action="#">
           <div class="form-top">
-            <input type="text" id="title" required placeholder="Title" />
             <input type="text" id="author" required placeholder="Author" />
+            <input type="text" id="title" required placeholder="Title" />
             <input
               type="number"
               id="num-pages"
@@ -49,7 +49,7 @@
             />
           </div>
           <span>Have you read this book?</span>
-          <div>
+          <div class="radio-inputs-wrapper">
             <input type="radio" name="radio" id="yes" value="yes" checked />
             <label for="yes" class="yes">Yes</label>
             <input type="radio" name="radio" id="no" value="no" />
@@ -70,8 +70,8 @@
       <table>
         <thead>
           <tr>
-            <th>Title</th>
             <th>Author</th>
+            <th>Title</th>
             <th>No. of pages</th>
             <th>Read</th>
           </tr>

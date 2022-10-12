@@ -14,7 +14,7 @@ body {
   overflow-x: hidden;
   width: 100vw;
   gap: 2em;
-  background: rgb(196, 196, 213);
+  background-color: #f8f8ff;
 }
 
 /* HEADING SECTION */
@@ -64,7 +64,7 @@ p {
   transition: 0.5s;
   font-size: 1rem;
   font-weight: 800;
-  background-color: #e1ebee;
+  background-color: whitesmoke;
   box-shadow: 0 4px 4px -4px black;
 }
 
@@ -76,7 +76,8 @@ p {
 /* MODAL */
 .pop-up {
   width: 25em;
-  background-color: #f0f0f0;
+  background-color: whitesmoke;
+  box-shadow: 1px 1px 1px gray;
   align-self: center;
   border-radius: 5px;
   border: none;
@@ -125,10 +126,10 @@ input {
   border-radius: 2px;
 }
 
-#yes,
-#no {
-  margin: 2em;
-  width: 1.25em;
+.radio-inputs-wrapper {
+  display: flex;
+  gap: 2em;
+  margin-bottom: 1em;
 }
 
 .buttons-div {
@@ -167,8 +168,6 @@ input {
 
 /* TABLE */
 .clear-list-btn {
-  visibility: hidden;
-  opacity: 0;
   align-self: flex-end;
   position: absolute;
   right: -5px;
@@ -182,40 +181,63 @@ input {
   transform: scale(1.1);
 }
 
-.clear-list-btn.show {
-  visibility: visible;
-  opacity: 1;
-}
-
 .table-box {
+  width: 80vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
   opacity: 0;
-  visibility: 0;
+  visibility: hidden;
 }
 
 .table-box.show {
   opacity: 1;
+  visibility: visible;
 }
 
 table {
-  border-collapse: collapse;
+  width: 100%;
+  background-color: #e2f0f9;
   margin-top: 2em;
-  background-color: #e1ebee;
   margin-bottom: 10em;
   box-shadow: 1px 1px 1px gray;
   border: none;
   border-radius: 5px;
+  border-collapse: collapse;
+  border-spacing: 3px 0;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 1em;
+}
+
+tr {
+  opacity: 1;
+  background-color: transparent;
+  transition: background-color 0.5s ease-in-out, transform 0.5s ease-in-out,
+    opacity 0.5s ease-in-out;
+}
+
+tr.saved {
+  background-color: lightskyblue;
+  opacity: 0.8;
+  transform: scale(1.02);
 }
 
 .row input {
   border: none;
   background-color: transparent;
   border-radius: 5px;
+  outline: none;
 }
 
 .row input.edit {
   border: 0.5px solid gray;
   background-color: white;
+  outline: auto;
 }
 
 .row .fa-check:hover {
@@ -225,6 +247,10 @@ table {
 .row .fa-check.show {
   opacity: 1;
   visibility: visible;
+}
+
+.fa-toggle-on {
+  color: blue;
 }
 
 .fa-toggle-on:hover,
@@ -277,21 +303,20 @@ table {
 /* MOBILE  */
 @media screen and (min-width: 320px) {
   html {
-    font-size: 50%;
+    font-size: 40%;
   }
 
   .pop-up {
     margin-top: 200px;
   }
 
-  td,
-  th {
-    padding: 1em 3em;
-    font-size: 40%;
+  form button,
+  form input {
+    font-size: 95%;
   }
 
-  input {
-    width: 80%;
+  table input {
+    font-size: 20%;
   }
 
   .buttons-div {
@@ -309,18 +334,16 @@ table {
     font-size: 80%;
   }
 
-  td,
-  th {
-    padding: 1em 3em;
-    font-size: 80%;
-  }
-
   .clear-list-btn {
     top: 15px;
   }
 
   .buttons-div {
     flex-direction: row;
+  }
+
+  table input {
+    font-size: 70%;
   }
 }
 
@@ -330,9 +353,7 @@ table {
     font-size: 90%;
   }
 
-  td,
-  th {
-    padding: 1em 4em;
+  table input {
     font-size: 100%;
   }
 }

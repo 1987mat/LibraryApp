@@ -10,7 +10,7 @@
 
 ## Screenshots
 
-<img src="https://user-images.githubusercontent.com/64235918/195475140-40a0fc73-0eee-4995-a6ba-a2e0b8462c36.png" width="400"/>
+<img src="https://user-images.githubusercontent.com/64235918/195475140-40a0fc73-0eee-4995-a6ba-a2e0b8462c36.png" width="300"/>
 
 ## Built With
 

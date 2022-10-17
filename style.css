@@ -68,6 +68,10 @@ p {
   color: #484848;
 }
 
+.fa-plus {
+  padding-right: 0.2em;
+}
+
 #addBook-btn {
   width: 20em;
   height: 3em;

@@ -14,17 +14,15 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons/ionicons.esm.js"
-    ></script>
     <title>Library App</title>
   </head>
-
   <body>
     <div class="heading">
       <h1>Library App</h1>
+      <div class="sub-heading">
+        <p>Build your digital library</p>
+        <i class="fa fa-book" aria-hidden="true"></i>
+      </div>
     </div>
     <div class="message-success">
       <span>Book Added</span>
@@ -32,7 +30,6 @@
     </div>
     <div class="main-div">
       <div class="add-book-div">
-        <p>Click the button below and add a new book to the list</p>
         <button id="addBook-btn"><i class="fa fa-plus"></i> ADD BOOK</button>
       </div>
       <!-- POPUP -->
@@ -50,10 +47,14 @@
           </div>
           <span>Have you read this book?</span>
           <div class="radio-inputs-wrapper">
-            <input type="radio" name="radio" id="yes" value="yes" checked />
-            <label for="yes" class="yes">Yes</label>
-            <input type="radio" name="radio" id="no" value="no" />
-            <label for="no" class="no">No</label>
+            <div>
+              <input type="radio" name="radio" id="yes" value="yes" checked />
+              <label for="yes" class="yes">Yes</label>
+            </div>
+            <div>
+              <input type="radio" name="radio" id="no" value="no" />
+              <label for="no" class="no">No</label>
+            </div>
           </div>
           <div class="buttons-div">
             <button id="submit-btn" type="submit">SUBMIT</button>
@@ -64,9 +65,7 @@
     </div>
     <!-- DISPLAY LIST -->
     <div class="table-box">
-      <a href="#/" class="clear-list-btn"
-        ><i class="fa fa-times-circle" aria-hidden="true"></i
-      ></a>
+      <i class="clear-list-btn fa fa-times-circle" aria-hidden="true"></i>
       <table>
         <thead>
           <tr>

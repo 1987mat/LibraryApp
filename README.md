@@ -1,6 +1,6 @@
 # Library App
 
-<p>CRUD Library App built with Vanilla JS.</p>
+<p>CRUD Library App built with Vanilla JS. Classes and local storage.</p>
 
 ## Links
 
@@ -14,9 +14,9 @@
 
 ## Built With
 
-- JavaScript
 - HTML
 - CSS
+- JavaScript
 
 ## Author
 

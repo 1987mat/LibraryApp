@@ -22,16 +22,7 @@ class Book {
   }
 }
 
-// Get books from Local Storage
-function getLibrary() {
-  if (localStorage.getItem('myLibrary') === null) {
-    myLibrary = [];
-  } else {
-    myLibrary = JSON.parse(localStorage.getItem('myLibrary'));
-  }
-  return myLibrary;
-}
-
+// EVENT LISTENERS
 document.addEventListener('DOMContentLoaded', () => {
   getLibrary();
   hideTable();
@@ -57,7 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Add new book
 btnNewBook.addEventListener('click', () => {
   popUp.classList.add('show');
   heading.classList.add('hide');
@@ -131,58 +121,6 @@ clearBtn.addEventListener('click', () => {
   });
 });
 
-function renderBook() {
-  let row = document.createElement('tr');
-
-  myLibrary.forEach((value, index) => {
-    let toggleClass;
-    // Display toggle icon on or off
-    value.read === 'yes'
-      ? (toggleClass = 'fa-toggle-on')
-      : (toggleClass = 'fa-toggle-off');
-
-    row.setAttribute('id', `${index}`);
-    row.classList.add('row');
-    row.innerHTML = `
-      <td><input type="text" value="${value.author}" readonly></input></td>
-      <td><input type="text" value="${value.title}" readonly></input></td>
-      <td><input type="number" value="${value.pages}" readonly></input></td>
-      <td>${value.read}</td>
-      <td><i class="fa ${toggleClass}"></i></td>
-      <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
-      <td><i class="fa fa-trash" aria-hidden="true"></i></td>`;
-    list.appendChild(row);
-    table.classList.remove('hide');
-  });
-}
-
-function hideTable() {
-  if (!myLibrary.length) {
-    table.classList.add('hide');
-  } else {
-    table.classList.add('show');
-  }
-}
-
-function getReadStatus() {
-  const radioBtn = document.querySelectorAll('input[name="radio"]');
-  let selectValue;
-
-  for (const i of radioBtn) {
-    if (i.checked) {
-      selectValue = i.value;
-    }
-  }
-  return selectValue;
-}
-
-// Alert message
-function showAlert() {
-  const messageDiv = document.querySelector('.message-success');
-  messageDiv.classList.add('show');
-  setTimeout(() => messageDiv.classList.remove('show'), 2000);
-}
-
 list.addEventListener('click', (e) => {
   e.preventDefault();
 
@@ -244,6 +182,27 @@ list.addEventListener('click', (e) => {
   }
 });
 
+// Exit edit mode when clicking outside
+document.addEventListener('click', (e) => {
+  if (editMode) {
+    let currentBook = document.querySelector('.edit-mode');
+    let currentEditBtn = currentBook.querySelector('.fa-check');
+    if (
+      !e.target.classList.contains('fa-check') &&
+      e.target.tagName.toUpperCase() !== 'INPUT'
+    ) {
+      currentBook.classList.remove('edit-mode');
+      editMode = false;
+      currentBook.querySelectorAll('input').forEach((item) => {
+        item.classList.remove('edit');
+        item.readOnly = true;
+      });
+      currentEditBtn.classList.remove('fa-check');
+      currentEditBtn.classList.add('fa-pencil');
+    }
+  }
+});
+
 // Enter key event in edit mode
 document.addEventListener('keydown', (e) => {
   let target = list.querySelector('.fa-check');
@@ -252,6 +211,68 @@ document.addEventListener('keydown', (e) => {
     editBook(target);
   }
 });
+
+// Get books from Local Storage
+function getLibrary() {
+  if (localStorage.getItem('myLibrary') === null) {
+    myLibrary = [];
+  } else {
+    myLibrary = JSON.parse(localStorage.getItem('myLibrary'));
+  }
+  return myLibrary;
+}
+
+function renderBook() {
+  let row = document.createElement('tr');
+
+  myLibrary.forEach((value, index) => {
+    let toggleClass;
+    // Display toggle icon on or off
+    value.read === 'yes'
+      ? (toggleClass = 'fa-toggle-on')
+      : (toggleClass = 'fa-toggle-off');
+
+    row.setAttribute('id', `${index}`);
+    row.classList.add('row');
+    row.innerHTML = `
+      <td><input type="text" value="${value.author}" readonly></input></td>
+      <td><input type="text" value="${value.title}" readonly></input></td>
+      <td><input type="number" value="${value.pages}" readonly></input></td>
+      <td>${value.read}</td>
+      <td><i class="fa ${toggleClass}"></i></td>
+      <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
+      <td><i class="fa fa-trash" aria-hidden="true"></i></td>`;
+    list.appendChild(row);
+    table.classList.remove('hide');
+  });
+}
+
+function hideTable() {
+  if (!myLibrary.length) {
+    table.classList.add('hide');
+  } else {
+    table.classList.add('show');
+  }
+}
+
+function getReadStatus() {
+  const radioBtn = document.querySelectorAll('input[name="radio"]');
+  let selectValue;
+
+  for (const i of radioBtn) {
+    if (i.checked) {
+      selectValue = i.value;
+    }
+  }
+  return selectValue;
+}
+
+// Alert message
+function showAlert() {
+  const messageDiv = document.querySelector('.message-success');
+  messageDiv.classList.add('show');
+  setTimeout(() => messageDiv.classList.remove('show'), 2000);
+}
 
 function editBook(target) {
   editMode = false;

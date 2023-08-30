@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
 
 * {
   box-sizing: border-box;
-  font-family: 'Cabin', sans-serif;
-  color: #282828;
+  font-family: 'Lato', sans-serif;
+  color: #505050;
 }
 
 body {
@@ -25,7 +25,6 @@ body {
   font-size: 5rem;
   text-align: center;
   color: #eae0d5;
-  letter-spacing: 0.25rem;
 }
 
 .heading.hide {
@@ -147,6 +146,11 @@ input {
   display: flex;
   gap: 2em;
   margin-bottom: 1em;
+}
+
+.radio-inputs-wrapper div {
+  display: flex;
+  gap: 0.25em;
 }
 
 .buttons-div {
